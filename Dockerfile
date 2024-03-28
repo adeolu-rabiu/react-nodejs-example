@@ -1,3 +1,4 @@
+# Use the latest Node.js image as a base
 FROM node:10 AS ui-build
 WORKDIR /usr/src/app
 COPY my-app/ ./my-app/
