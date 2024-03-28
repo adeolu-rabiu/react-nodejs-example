@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
-const app = express(),
-      bodyParser = require("body-parser");
-      port = 80;
+const app = express();
+const bodyParser = require("body-parser");
+const port = 3080;
 
-// place holder for the data
+// Place holder for the data
 const users = [
   {
     firstName: "first1",
@@ -24,6 +24,8 @@ const users = [
 ];
 
 app.use(bodyParser.json());
+
+// Serve static files from the 'my-app/build' directory
 app.use(express.static(path.join(__dirname, '../my-app/build')));
 
 app.get('/api/users', (req, res) => {
@@ -35,10 +37,11 @@ app.post('/api/user', (req, res) => {
   const user = req.body.user;
   console.log('Adding user:::::', user);
   users.push(user);
-  res.json("user addedd");
+  res.json("user added");
 });
 
-app.get('/', (req,res) => {
+// Serve 'index.html' for all routes
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../my-app/build/index.html'));
 });
 
